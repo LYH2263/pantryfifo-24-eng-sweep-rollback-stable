@@ -17,8 +17,15 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { api } from './api'
+import { shelfVersion } from './store'
 const alerts = ref([])
-onMounted(async () => { try { alerts.value = await api('/alerts') } catch { alerts.value = [] } })
+async function load() {
+  try { alerts.value = await api('/alerts') } catch { alerts.value = [] }
+}
+// Reload in the same settle tick as 全层/层页 — the bar can never stay
+// showing a batch the shelf pages no longer show (or vice versa).
+watch(() => shelfVersion.n, load)
+onMounted(load)
 </script>
