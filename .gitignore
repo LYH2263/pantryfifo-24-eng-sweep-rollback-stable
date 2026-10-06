@@ -5,3 +5,6 @@ __pycache__/
 frontend/dist/
 .pytest_cache/
 *.db
+*.db-wal
+*.db-shm
+backend/data/

@@ -17,6 +17,7 @@ const expiry = ref('2026-12-01')
 onMounted(async () => { items.value = await api('/items'); if (items.value[0]) item_id.value = items.value[0].id })
 async function go() {
   await api('/lots', { method: 'POST', body: JSON.stringify({ item_id: item_id.value, qty: qty.value, expiry: expiry.value }) })
+  window.dispatchEvent(new Event('pantry:changed'))
   alert('已入库')
 }
 </script>

@@ -19,5 +19,6 @@ async function go() {
   try {
     result.value = JSON.stringify(await api('/consume', { method: 'POST', body: JSON.stringify({ item_id: item_id.value, qty: qty.value }) }), null, 2)
   } catch (e) { result.value = e.message }
+  window.dispatchEvent(new Event('pantry:changed'))
 }
 </script>
